@@ -1,0 +1,162 @@
+Q-1.Write a Selenium Script to Move to frame and select and print the date from calender in the website (https://jqueryui.com/datepicker/)
+
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class SelectDateAutomation {
+
+	public static void main(String[] args) throws InterruptedException {
+			// To Initialize the browser
+				WebDriverManager.chromedriver().setup();
+				WebDriver driver=new ChromeDriver();
+				
+			//to maximize and delete cookies
+				driver.manage().window().maximize();
+				driver.manage().deleteAllCookies();
+				
+			//Navigate to Web page
+				driver.navigate().to("https://jqueryui.com/datepicker/");		
+				Thread.sleep(1000);
+			//To switch to frame	
+				WebElement Selectframe = driver.findElement(By.xpath("//iframe[@class='demo-frame']"));
+				driver.switchTo().frame(Selectframe);
+			//To Select the DateFiled	
+				WebElement DateField = driver.findElement(By.id("datepicker"));
+				DateField.click();
+			//To Select the Nextmonth	
+				Thread.sleep(3000);
+				WebElement nextmonth=driver.findElement(By.xpath("(//span[@class='ui-icon ui-icon-circle-triangle-e'])[1]"));
+				nextmonth.click();
+			//To select the Date
+				WebElement Clickdate=driver.findElement(By.xpath("//tbody/tr[4]/td[2]"));
+				Clickdate.click();
+				
+				List<WebElement> day = driver.findElements(By.xpath("//tbody/tr[4]/td[2]"));
+
+				for (WebElement date:day)
+				{ 
+				System.out.println("Selected Date is: "+date.getText());
+				
+				Thread.sleep(1000);
+			//To close the Browser window and webdriver
+				driver.close();
+				driver.quit();
+				
+				
+	}
+	
+				
+	}
+}
+
+
+Output= Selected Date is: 22
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Q-2. To automate the sign up and login in the given Url (https://www.guvi.in/)
+
+package WorkTask;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class GuviRegisterPageLoginScript {
+
+	public static void main(String[] args) throws InterruptedException {
+			// To Initialize the browser
+				WebDriverManager.chromedriver().setup();
+				WebDriver driver=new ChromeDriver();
+				
+			// To maximize and delete cookies
+				driver.manage().window().maximize();
+				driver.manage().deleteAllCookies();
+				
+			// To Navigate to Web page
+				driver.get("https://www.guvi.in/");		
+				Thread.sleep(1000);
+				
+			// To Click the Signup button
+				WebElement Signupbutton = driver.findElement(By.linkText("Sign up"));
+				Signupbutton.click();
+			// To Enter the Name in signup page
+		        WebElement NameField = driver.findElement(By.id("name"));
+		        NameField.sendKeys("Karthik");
+		        Thread.sleep(1000);
+		    // To Enter a Email in signup page
+		        WebElement EmailField = driver.findElement(By.xpath("//input[@type='email']"));  
+		        EmailField.sendKeys("dummytesting23541@gmail.com");
+		        Thread.sleep(2000);
+		    // To Enter a Password in signup page
+		        WebElement PasswordField = driver.findElement(By.id("password"));
+		        PasswordField.sendKeys("Testing@2023");
+		        Thread.sleep(2000);
+		    // To Enter MbileNo in signup page
+		        WebElement MobilenoField = driver.findElement(By.xpath("//input[@id='mobileNumber']"));
+		        MobilenoField.sendKeys("6210101010");
+		        Thread.sleep(1000);
+		    // To Click the Signup button in signup page
+		        WebElement SignUpbutton = driver.findElement(By.xpath("(//a[text()='Sign Up'])[1]"));
+		        SignUpbutton.click();
+		        Thread.sleep(2000);
+		    // To verify the registration sucessfully
+		        String Title=driver.getTitle();
+		        System.out.println("Title of Register Page: "+Title);
+		        String ActualTitle="GUVI | Sign Up";
+		        if(Title.equals(ActualTitle)) {
+		        	System.out.println("User is Already Registered Successfully");
+		        }else {
+		        	System.out.println("User Not Registered Successfully");
+		        }  
+		    // To click the click here button     
+		        WebElement clickloginhere = driver.findElement(By.linkText("Click here to Login"));
+		        clickloginhere.click();
+		        Thread.sleep(1000);
+		    // To Click the login button in Home page     
+		        WebElement Loginbutton = driver.findElement(By.linkText("Login"));
+		        Loginbutton.click();
+		        Thread.sleep(1000);
+		    // To Enter a Email in login page     
+		        WebElement LoginEmailField = driver.findElement(By.xpath("//input[@id='email']"));
+		        LoginEmailField.sendKeys("dummytesting23541@gmail.com");
+		        Thread.sleep(1000);
+		    // To Enter a Password in login page
+		        WebElement LoginpasswordField = driver.findElement(By.xpath("//input[@id='password']"));
+		        LoginpasswordField.sendKeys("Testing@2023");
+		        Thread.sleep(1000);
+		    // To Click the login button in login page    
+		        WebElement Loginbtn = driver.findElement(By.xpath("//a[@id='login-btn']"));
+		        Loginbtn.click();
+		        Thread.sleep(1000);    
+		    // To verify the registration sucessfully
+		        String Titlelogin=driver.getTitle();
+		        System.out.println("Title of Login Page: "+Titlelogin);
+		        String ActualTitlelogin="GUVI | courses";
+		        if(Titlelogin.equals(ActualTitlelogin)) {
+		        	System.out.println("User Logged in Successfully");
+		        }else {
+		        	System.out.println("User Not Logged in Successfully");
+		        }
+		        Thread.sleep(2000);
+		    // To Close the Browser WebDriver
+		        driver.close();
+	}
+	
+}	
+
+
+Output = 
+
+	Title of Register Page: GUVI | Sign Up
+	User is Already Registered Successfully
+	Title of Login Page: GUVI | courses
+	User Logged in Successfully
